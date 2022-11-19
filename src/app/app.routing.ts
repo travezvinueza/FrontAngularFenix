@@ -8,9 +8,9 @@ import { InitialDataResolver } from 'app/app.resolvers';
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
-
-    // Redirect empty path to '/dashboards/project'
-    {path: '', pathMatch : 'full', redirectTo: 'dashboards/project'},
+ 
+    // Redirect empty path to 'login'
+    {path: '', pathMatch : 'full', redirectTo: '/sign-in'},
 
     // Redirect signed in user to the '/dashboards/project'
     //
