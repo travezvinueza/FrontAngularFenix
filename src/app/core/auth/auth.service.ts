@@ -178,4 +178,8 @@ export class AuthService {
         // If the access token exists and it didn't expire, sign in using it
         return this.signInUsingToken();
     }
+
+    send(): any {
+        return this._httpClient.get('api/v1/security/user')
+    }
 }

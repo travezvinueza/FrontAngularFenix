@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,7 +40,8 @@ export class AuthSignInComponent implements OnInit {
 
     signIn(): void {
 
-        debugger
+        this.send()
+        
         if (this.signInForm.invalid) {
             return;
         }
@@ -76,5 +78,13 @@ export class AuthSignInComponent implements OnInit {
                     this.showAlert = true;
                 }
             );
+    }
+
+    send() {
+        this._authService.send().subscribe(data => {
+            alert(data)
+        }, (error: HttpErrorResponse) => {
+            alert(error.message)
+        })
     }
 }
