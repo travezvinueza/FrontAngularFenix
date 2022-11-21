@@ -61,14 +61,12 @@ export class AuthService {
      * @param credentials
      */
     signIn(credentials: { user: string; password: string }): Observable<any> {
-        // Throw error, if the user is already logged in
+
         if (this._authenticated) {
             return throwError('User is already logged in.');
         }
 
-        var credentialsLog = { email: credentials.user, password: credentials.password }
-
-        return this._httpClient.post('api/auth/sign-in', credentialsLog).pipe(
+        return this._httpClient.post('api/auth/sign-in', credentials).pipe(
             switchMap((response: any) => {
 
                 // Store the access token in the local storage
@@ -180,6 +178,6 @@ export class AuthService {
     }
 
     send(): any {
-        return this._httpClient.get('api/v1/security/user')
+        return this._httpClient.get('http://localhost:8080/v1/security/user')
     }
 }
