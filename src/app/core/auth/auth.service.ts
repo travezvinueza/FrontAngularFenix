@@ -54,7 +54,14 @@ export class AuthService {
         const user: User = JSON.parse(localStorage.getItem('user') || null)
         const auth: boolean = JSON.parse(localStorage.getItem('auth') || null)
         if (user == null || auth == null) {
-            this.signOut();
+            return of(false)
+        }
+
+        if (!this.accessToken) {
+            return of(false);
+        }
+    
+        if (AuthUtils.isTokenExpired(this.accessToken)) {
             return of(false)
         }
 
@@ -64,18 +71,6 @@ export class AuthService {
         if (this._authenticated) {
             return of(true);
         }
-
-        if (!this.accessToken) {
-            return of(false);
-        }
-
-        let isExpired = AuthUtils.isTokenExpired(this.accessToken)
-        if (isExpired) {
-            return of(false);
-        } else {
-            return of(true)
-        }
-
     }
 
     forgotPassword(email: string): Observable<any> {
