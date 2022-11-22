@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,14 +29,12 @@ export class AuthSignInComponent implements OnInit {
 
     ngOnInit(): void {
         this.signInForm = this._formBuilder.group({
-            user: ['', [Validators.required]],
+            username: ['', [Validators.required]],
             password: ['', Validators.required]
         });
     }
 
     signIn(): void {
-
-        this.send()
 
         if (this.signInForm.invalid) {
             return;
@@ -47,32 +45,19 @@ export class AuthSignInComponent implements OnInit {
 
         this._authService.signIn(this.signInForm.value)
             .subscribe(
-                () => {
+                (data: any) => {
                     const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-                    this._router.navigateByUrl(redirectURL);
-                }, (response) => {
-
+                    this._router.navigateByUrl("/signed-in-redirect");
+                }, (response: HttpErrorResponse) => {
+                    debugger
                     this.signInForm.enable();
-
                     this.alertService.alert = {
                         type: 'error',
-                        message: 'Error usuario o contraseña incorrectos'
+                        message: response.error.message
                     };
-
                     this.alertService.showAlert = true;
                 }
             );
     }
 
-    send() {
-        this._authService.send().subscribe(data => {
-            alert(data)
-        }, (error: HttpErrorResponse) => {
-            this.alertService.alert = {
-                type: 'success',
-                message: 'peligro adevenretinca'
-            };
-            this.alertService.showAlert = true;
-        })
-    }
 }

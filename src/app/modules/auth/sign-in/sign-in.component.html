@@ -37,10 +37,10 @@
                 <mat-form-field class="w-full w-full-mat-label">
                     <mat-label>Usuario</mat-label>
                     <input
-                        id="user"
+                        id="username"
                         matInput
-                        [formControlName]="'user'">
-                    <mat-error *ngIf="signInForm.get('user').hasError('required')">
+                        [formControlName]="'username'">
+                    <mat-error *ngIf="signInForm.get('username').hasError('required')">
                         Usuario es requerido
                     </mat-error>
                 </mat-form-field>

@@ -4,6 +4,8 @@ import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { user } from 'app/mock-api/common/user/data';
+import { AppSettings } from 'app/enviroments';
+import { User } from '../user/user.types';
 
 @Injectable()
 export class AuthService {
@@ -60,25 +62,23 @@ export class AuthService {
      *
      * @param credentials
      */
-    signIn(credentials: { user: string; password: string }): Observable<any> {
+    signIn(credentials: { username: string; password: string }): Observable<any> {
 
         if (this._authenticated) {
             return throwError('User is already logged in.');
         }
 
-        return this._httpClient.post('api/auth/sign-in', credentials).pipe(
+        return this._httpClient.post(AppSettings.API_PATH.concat('/login'), credentials).pipe(
             switchMap((response: any) => {
 
-                // Store the access token in the local storage
-                this.accessToken = response.accessToken;
+                this.accessToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaWVnbzE1MDNic2NAZ21haWwuY29tIiwiZXhwIjoxNjY5Njg4NTU0LCJ1c2VybmFtZSI6IkFkbWluaXN0cmFkb3IifQ.rLeqQfACXJtpJKi6kZcKfFZrORFOtciGGGVboOQlBrE";
 
-                // Set the authenticated flag to true
                 this._authenticated = true;
 
-                // Store the user on the user service
-                this._userService.user = response.user;
+                const userAdd: User = { id: "", name: "test", email: "test@gmail.com", avatar: "", status: "success" }
+                
+                this._userService.user = userAdd;
 
-                // Return a new observable with the response
                 return of(response);
             })
         );
@@ -177,7 +177,4 @@ export class AuthService {
         return this.signInUsingToken();
     }
 
-    send(): any {
-        return this._httpClient.get('http://localhost:8080/v1/security/user')
-    }
 }
