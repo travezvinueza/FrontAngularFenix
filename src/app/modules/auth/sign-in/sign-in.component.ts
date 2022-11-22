@@ -49,11 +49,10 @@ export class AuthSignInComponent implements OnInit {
                     const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
                     this._router.navigateByUrl("/signed-in-redirect");
                 }, (response: HttpErrorResponse) => {
-                    debugger
                     this.signInForm.enable();
                     this.alertService.alert = {
                         type: 'error',
-                        message: response.error.message
+                        message: response.error.message || response
                     };
                     this.alertService.showAlert = true;
                 }
