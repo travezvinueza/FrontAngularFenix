@@ -4,8 +4,8 @@ import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { user } from 'app/mock-api/common/user/data';
-import { AppSettings } from 'app/enviroments';
 import { User } from '../user/user.types';
+import { AppSettings } from 'app/enviroments';
 
 @Injectable()
 export class AuthService {
