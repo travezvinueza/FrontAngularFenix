@@ -36,12 +36,11 @@ export class AuthService {
             this._router.navigateByUrl("/signed-in-redirect");
         }
 
-        return this._httpClient.post(AppSettings.API_PATH.concat('/login'), credentials).pipe(
+        return this._httpClient.post(AppSettings.API_PATH.concat('/public/login'), credentials).pipe(
             switchMap((response: any) => {
-                const user: User = { id: "1", name: "test", email: "hughes.brian@company.com", avatar: "", status: "success" }
-                localStorage.setItem('user', JSON.stringify(user))
+                localStorage.setItem('user', JSON.stringify(response.user))
                 localStorage.setItem('auth', JSON.stringify(true))
-                this.accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaWVnbzE1MDNic2NAZ21haWwuY29tIiwiZXhwIjoxNjY5Njg4NTU0LCJ1c2VybmFtZSI6IkFkbWluaXN0cmFkb3IifQ.rLeqQfACXJtpJKi6kZcKfFZrORFOtciGGGVboOQlBrE";
+                this.accessToken = response.accessToken
                 this._authenticated = true;
                 this._userService.user = user;
                 return of(response);
@@ -54,7 +53,14 @@ export class AuthService {
         const user: User = JSON.parse(localStorage.getItem('user') || null)
         const auth: boolean = JSON.parse(localStorage.getItem('auth') || null)
         if (user == null || auth == null) {
-            this.signOut();
+            return of(false)
+        }
+
+        if (!this.accessToken) {
+            return of(false);
+        }
+    
+        if (AuthUtils.isTokenExpired(this.accessToken)) {
             return of(false)
         }
 
@@ -64,18 +70,6 @@ export class AuthService {
         if (this._authenticated) {
             return of(true);
         }
-
-        if (!this.accessToken) {
-            return of(false);
-        }
-
-        let isExpired = AuthUtils.isTokenExpired(this.accessToken)
-        if (isExpired) {
-            return of(false);
-        } else {
-            return of(true)
-        }
-
     }
 
     forgotPassword(email: string): Observable<any> {
