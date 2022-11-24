@@ -28,7 +28,6 @@ export class CryptoComponent implements OnInit, OnDestroy {
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
     recentTransactionsTableColumns: string[] = ['name', 'commercialName', 'document', 'mobile', 'status', 'actions'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
-
     registerCompanyForm: UntypedFormGroup;
 
     constructor(
@@ -56,36 +55,17 @@ export class CryptoComponent implements OnInit, OnDestroy {
     }
 
     getAllCompanies() {
-        debugger
-        this._cryptoService.data$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((data) => {
-                this.data = data;
-                this.recentTransactionsDataSource.data = data;
-            });
+        this._cryptoService.getData().subscribe(data => {
+            this.data = data;
+            this.recentTransactionsDataSource.data = data.reverse();
+        }, (response => {
+            this.alertService.viewMessage('error', response.error.message, true)
+        }))
     }
-
-    ngAfterViewInit(): void {
-        this.recentTransactionsDataSource.sort = this.recentTransactionsTableMatSort;
-    }
-
-    ngOnDestroy(): void {
-        this._unsubscribeAll.next(null);
-        this._unsubscribeAll.complete();
-    }
-
-    trackByFn(index: number, item: any): any {
-        return item.id || index;
-    }
-
 
     createCompany() {
         if (this.registerCompanyForm.invalid) {
-            this.alertService.showAlert = true
-            this.alertService.alert = {
-                type: 'error',
-                message: 'Debe de completar todos los campos'
-            };
+            this.alertService.viewMessage('error', 'Debe de completar todos los campos', true)
             return
         }
 
@@ -111,19 +91,13 @@ export class CryptoComponent implements OnInit, OnDestroy {
         }
 
         this._cryptoService.createCompany(companyModel).subscribe(data => {
-            this.alertService.alert = {
-                type: 'success',
-                message: 'Registro creado exitosamente'
-            };
-            this.alertService.showAlert = true
-            this.clear()
+            this.alertService.viewMessage('success', 'Registro creado exitosamente', true)
+            this.registerCompanyForm.enable();
+            this.registerCompanyForm.reset()
+            this.registerCompanyNgForm.resetForm();
             this.getAllCompanies()
         }, (response: HttpErrorResponse) => {
-            this.alertService.alert = {
-                type: 'error',
-                message: response.error.message
-            };
-            this.alertService.showAlert = true
+            this.alertService.viewMessage('error', response.error.message, true)
             this.registerCompanyForm.enable()
         })
     }
@@ -134,4 +108,18 @@ export class CryptoComponent implements OnInit, OnDestroy {
         this.registerCompanyNgForm.resetForm();
         this.alertService.showAlert = false
     }
+
+    ngAfterViewInit(): void {
+        this.recentTransactionsDataSource.sort = this.recentTransactionsTableMatSort;
+    }
+
+    ngOnDestroy(): void {
+        this._unsubscribeAll.next(null);
+        this._unsubscribeAll.complete();
+    }
+
+    trackByFn(index: number, item: any): any {
+        return item.id || index;
+    }
+
 }

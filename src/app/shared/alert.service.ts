@@ -13,4 +13,12 @@ export class AlertService {
   showAlert: boolean = false;
 
   constructor() { }
+
+  viewMessage(type: FuseAlertType, message: string, view: boolean) {
+    this.alert = {
+      type: type,
+      message: message || 'Error undefined'
+    };
+    this.showAlert = view
+  }
 }

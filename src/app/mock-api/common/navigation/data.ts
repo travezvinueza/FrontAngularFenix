@@ -4,8 +4,8 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 export const defaultNavigation: FuseNavigationItem[] = [
     {
         id      : 'dashboards',
-        title   : 'Dashboards',
-        subtitle: 'Unique dashboard designs',
+        title   : 'Inicio',
+        subtitle: '',
         type    : 'group',
         icon    : 'heroicons_outline:home',
         children: [
@@ -18,7 +18,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
             },
             {
                 id   : 'dashboards.crypto',
-                title: 'Empresa',
+                title: 'Empresas',
                 type : 'basic',
                 icon : 'heroicons_outline:currency-dollar',
                 link : '/dashboards/empresa'

@@ -124,7 +124,7 @@ export class LanguagesComponent implements OnInit, OnDestroy
         const projectDashboardItem = this._fuseNavigationService.getItem('dashboards.project', navigation);
         if ( projectDashboardItem )
         {
-            this._translocoService.selectTranslate('Project').pipe(take(1))
+            this._translocoService.selectTranslate('Dashboard').pipe(take(1))
                 .subscribe((translation) => {
 
                     // Set the title
@@ -139,7 +139,7 @@ export class LanguagesComponent implements OnInit, OnDestroy
         const analyticsDashboardItem = this._fuseNavigationService.getItem('dashboards.analytics', navigation);
         if ( analyticsDashboardItem )
         {
-            this._translocoService.selectTranslate('Analytics').pipe(take(1))
+            this._translocoService.selectTranslate('Analyticos').pipe(take(1))
                 .subscribe((translation) => {
 
                     // Set the title
