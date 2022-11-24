@@ -11,10 +11,17 @@ export const defaultNavigation: FuseNavigationItem[] = [
         children: [
             {
                 id   : 'dashboards.project',
-                title: 'Project',
+                title: 'Dashboard',
                 type : 'basic',
                 icon : 'heroicons_outline:clipboard-check',
                 link : '/dashboards/project'
+            },
+            {
+                id   : 'dashboards.crypto',
+                title: 'Empresa',
+                type : 'basic',
+                icon : 'heroicons_outline:currency-dollar',
+                link : '/dashboards/crypto'
             },
             {
                 id   : 'dashboards.analytics',
@@ -29,13 +36,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon : 'heroicons_outline:cash',
                 link : '/dashboards/finance'
-            },
-            {
-                id   : 'dashboards.crypto',
-                title: 'Crypto',
-                type : 'basic',
-                icon : 'heroicons_outline:currency-dollar',
-                link : '/dashboards/crypto'
             }
         ]
     },

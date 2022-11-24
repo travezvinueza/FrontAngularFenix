@@ -1,3 +1,4 @@
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +16,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from 'app/shared/shared.module';
 import { CryptoComponent } from 'app/modules/admin/dashboards/crypto/crypto.component';
 import { cryptoRoutes } from 'app/modules/admin/dashboards/crypto/crypto.routing';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     declarations: [
@@ -34,7 +36,9 @@ import { cryptoRoutes } from 'app/modules/admin/dashboards/crypto/crypto.routing
         MatTableModule,
         MatTabsModule,
         NgApexchartsModule,
-        SharedModule
+        SharedModule,
+        MatProgressBarModule,
+        MatDividerModule
     ]
 })
 export class CryptoModule

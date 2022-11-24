@@ -74,7 +74,7 @@ export class AuthService {
     }
 
     forgotPassword(email: string): Observable<any> {
-        return this._httpClient.post('api/auth/forgot-password', email);
+        return this._httpClient.get('api/public/v1/security/user/change/password?correo=' + email);
     }
 
     signOut(): Observable<any> {
