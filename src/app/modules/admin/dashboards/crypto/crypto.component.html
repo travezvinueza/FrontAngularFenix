@@ -10,7 +10,7 @@
             <!-- Formulario -->
             <div class="flex items-center">
                 <form class="flex flex-col flex-auto p-6 bg-card rounded-2xl shadow overflow-hidden"
-                    [formGroup]="registerCompanyForm" #signUpNgForm="ngForm">
+                    [formGroup]="registerCompanyForm" #registerCompanyNgForm="ngForm">
                     <p class="text-lg font-medium">Nueva Empresa</p>
                     <!-- Alert -->
                     <fuse-alert class="mt-8" *ngIf="this.alertService.showAlert" [appearance]="'outline'"
@@ -74,7 +74,7 @@
                     </div>
                     <div
                         class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
-                        <button mat-button>
+                        <button (click)="clear()" type="reset" mat-button>
                             Cancelar
                         </button>
                         <button (click)="createCompany()" class="px-6 ml-3" mat-flat-button [color]="'primary'">

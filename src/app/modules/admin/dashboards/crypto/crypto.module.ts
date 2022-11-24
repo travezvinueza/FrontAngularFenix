@@ -22,6 +22,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FuseCardModule } from '@fuse/components/card';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatRadioModule,
         FuseCardModule,
         FuseAlertModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatProgressSpinnerModule,
     ]
 })
 export class CryptoModule {
