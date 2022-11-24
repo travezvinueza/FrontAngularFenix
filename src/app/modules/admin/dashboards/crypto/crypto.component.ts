@@ -28,7 +28,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
-    recentTransactionsTableColumns: string[] = ['name', 'commercialName', 'document', 'mobile', 'status'];
+    recentTransactionsTableColumns: string[] = ['name', 'commercialName', 'document', 'mobile', 'status', 'actions'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     registerCompanyForm: UntypedFormGroup;

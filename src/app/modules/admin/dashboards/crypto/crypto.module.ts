@@ -21,6 +21,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { FuseCardModule } from '@fuse/components/card';
 import { FuseAlertModule } from '@fuse/components/alert';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { FuseAlertModule } from '@fuse/components/alert';
         MatRadioModule,
         FuseCardModule,
         FuseAlertModule,
+        MatTooltipModule
     ]
 })
 export class CryptoModule {
