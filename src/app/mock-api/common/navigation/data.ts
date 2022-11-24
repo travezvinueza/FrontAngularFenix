@@ -21,7 +21,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Empresa',
                 type : 'basic',
                 icon : 'heroicons_outline:currency-dollar',
-                link : '/dashboards/crypto'
+                link : '/dashboards/empresa'
             },
             {
                 id   : 'dashboards.analytics',
