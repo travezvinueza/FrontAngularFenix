@@ -42,6 +42,7 @@ export class AuthService {
                 localStorage.setItem('auth', JSON.stringify(true))
                 this.accessToken = response.accessToken
                 this._authenticated = true;
+                const user: User = { email: response.user.email, name: response.user.username, id: '' , avatar: 'assets/images/avatars/brian-hughes.jpg'}
                 this._userService.user = user;
                 return of(response);
             })
@@ -59,7 +60,7 @@ export class AuthService {
         if (!this.accessToken) {
             return of(false);
         }
-    
+
         if (AuthUtils.isTokenExpired(this.accessToken)) {
             return of(false)
         }
