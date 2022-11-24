@@ -1,4 +1,4 @@
 export enum States {
-    S = 'S',
-    N = 'N'
+    ACT = 'ACTIVO',
+    INA = 'INACTIVO'
 }
