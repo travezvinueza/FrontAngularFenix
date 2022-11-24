@@ -1,43 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { AppSettings } from 'app/enviroments';
+import { CompanyModel } from 'app/models/company.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class CryptoService
-{
+export class CryptoService {
     private _data: BehaviorSubject<any> = new BehaviorSubject(null);
 
-    /**
-     * Constructor
-     */
-    constructor(private _httpClient: HttpClient)
-    {
+
+    constructor(private _httpClient: HttpClient) {
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Getter for data
-     */
-    get data$(): Observable<any>
-    {
+    get data$(): Observable<any> {
         return this._data.asObservable();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Get data
-     */
-    getData(): Observable<any>
-    {
-        return this._httpClient.get('api/dashboards/crypto').pipe(
+    getData(): Observable<CompanyModel[]> {
+        return this._httpClient.get<CompanyModel[]>(AppSettings.API_PATH.concat('/v1/company')).pipe(
             tap((response: any) => {
                 this._data.next(response);
             })

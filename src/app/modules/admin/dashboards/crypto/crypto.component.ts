@@ -9,78 +9,49 @@ import { MatSort } from '@angular/material/sort';
 import { FinanceService } from '../finance/finance.service';
 
 @Component({
-    selector       : 'crypto',
-    templateUrl    : './crypto.component.html',
-    encapsulation  : ViewEncapsulation.None,
+    selector: 'crypto',
+    templateUrl: './crypto.component.html',
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CryptoComponent implements OnInit, OnDestroy
-{
+export class CryptoComponent implements OnInit, OnDestroy {
 
-    @ViewChild('recentTransactionsTable', {read: MatSort}) recentTransactionsTableMatSort: MatSort;
+    @ViewChild('recentTransactionsTable', { read: MatSort }) recentTransactionsTableMatSort: MatSort;
 
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
-    recentTransactionsTableColumns: string[] = ['transactionId', 'date', 'name', 'amount', 'telefono','status'];
+    recentTransactionsTableColumns: string[] = ['name', 'commercialName', 'document', 'mobile', 'status'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
-   
+
     constructor(
         private _cryptoService: CryptoService,
         private _financeService: FinanceService
-    )
-    {
+    ) {
     }
 
-    ngOnInit(): void
-    {
-        // Get the data
-        this._financeService.data$
+    ngOnInit(): void {
+        this._cryptoService.data$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((data) => {
-
-                // Store the data
+                debugger
                 this.data = data;
-
-                // Store the table data
-                this.recentTransactionsDataSource.data = data.recentTransactions;
-
+                this.recentTransactionsDataSource.data = data;
             });
     }
 
-    /**
-     * After view init
-     */
-    ngAfterViewInit(): void
-    {
-        // Make the data source sortable
+    ngAfterViewInit(): void {
         this.recentTransactionsDataSource.sort = this.recentTransactionsTableMatSort;
     }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Unsubscribe from all subscriptions
+    ngOnDestroy(): void {
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Track by function for ngFor loops
-     *
-     * @param index
-     * @param item
-     */
-    trackByFn(index: number, item: any): any
-    {
+    trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 
-   
+
 }
