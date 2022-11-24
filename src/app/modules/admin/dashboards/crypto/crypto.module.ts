@@ -19,12 +19,14 @@ import { cryptoRoutes } from 'app/modules/admin/dashboards/crypto/crypto.routing
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { FuseCardModule } from '@fuse/components/card';
+import { FuseAlertModule } from '@fuse/components/alert';
 
 @NgModule({
     declarations: [
         CryptoComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(cryptoRoutes),
         MatButtonModule,
         MatButtonToggleModule,
@@ -43,8 +45,9 @@ import { MatRadioModule } from '@angular/material/radio';
         MatDividerModule,
         MatCheckboxModule,
         MatRadioModule,
+        FuseCardModule,
+        FuseAlertModule,
     ]
 })
-export class CryptoModule
-{
+export class CryptoModule {
 }

@@ -1,6 +1,11 @@
 export interface LegalRepresentativeModel {
-    email: string,
-    firstName: string,
-    lastName: string,
-    dni: string
+    email?: string,
+    person: Person
+}
+
+
+export interface Person {
+    name?: string,
+    lastName?: string,
+    document: string
 }

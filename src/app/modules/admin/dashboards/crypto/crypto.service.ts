@@ -1,8 +1,8 @@
+import { CompanyModel } from './../../../../models/company.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AppSettings } from 'app/enviroments';
-import { CompanyModel } from 'app/models/company.model';
 
 @Injectable({
     providedIn: 'root'
@@ -25,5 +25,9 @@ export class CryptoService {
                 this._data.next(response);
             })
         );
+    }
+
+    createCompany(companyModel: CompanyModel): Observable<CompanyModel> {
+        return this._httpClient.post(AppSettings.API_PATH + '/v1/company/create', companyModel)
     }
 }

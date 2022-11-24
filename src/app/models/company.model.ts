@@ -8,5 +8,6 @@ export interface CompanyModel {
   quotationUser?: number,
   logo?: string,
   legalRepresentative?: LegalRepresentativeModel
+  phone?: string
 }
 

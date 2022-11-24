@@ -9,9 +9,15 @@
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full mt-8">
             <!-- Formulario -->
             <div class="flex items-center">
-                <form class="flex flex-col flex-auto p-6 bg-card rounded-2xl shadow overflow-hidden" [formGroup]="registerCompanyForm"
-                #signUpNgForm="ngForm">
+                <form class="flex flex-col flex-auto p-6 bg-card rounded-2xl shadow overflow-hidden"
+                    [formGroup]="registerCompanyForm" #signUpNgForm="ngForm">
                     <p class="text-lg font-medium">Nueva Empresa</p>
+                    <!-- Alert -->
+                    <fuse-alert class="mt-8" *ngIf="this.alertService.showAlert" [appearance]="'outline'"
+                        [showIcon]="false" [type]="this.alertService.alert.type"
+                        [@shake]="this.alertService.alert.type === 'error'">
+                        {{this.alertService.alert.message}}
+                    </fuse-alert>
                     <mat-divider class="mt-6 mb-10"></mat-divider>
                     <div class="flex">
                         <mat-form-field class="flex-auto">
@@ -22,22 +28,22 @@
                     </div>
                     <div class="flex flex-col gt-xs:flex-row">
                         <mat-form-field class="flex-auto gt-xs:pr-3">
-                            <input matInput [placeholder]="'Nombre Comercial'">
+                            <input matInput [placeholder]="'Nombre Comercial'" [formControlName]="'commercialName'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
                         </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pl-3">
-                            <input matInput [placeholder]="'Ruc'">
+                            <input matInput [placeholder]="'Ruc'" [formControlName]="'document'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
                         </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pl-3">
-                            <input matInput [placeholder]="'Teleono'">
+                            <input matInput [placeholder]="'Teleono'" [formControlName]="'phone'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
                         </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pl-3">
-                            <input matInput [placeholder]="'Celuar'">
+                            <input matInput [placeholder]="'Celuar'" [formControlName]="'mobile'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
                         </mat-form-field>
@@ -51,17 +57,17 @@
                     <mat-divider class="mt-6 mb-10"></mat-divider>
                     <div class="flex flex-col gt-xs:flex-row">
                         <mat-form-field class="flex-auto gt-xs:pl-3">
-                            <input matInput [placeholder]="'Nombre'">
+                            <input matInput [placeholder]="'Nombre'" [formControlName]="'representativeName'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
                         </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pr-3">
-                            <input matInput [placeholder]="'Apellido'">
+                            <input matInput [placeholder]="'Apellido'" [formControlName]="'representativeLastname'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
                         </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pl-3">
-                            <input matInput [placeholder]="'Documento'">
+                            <input matInput [placeholder]="'Documento'" [formControlName]="'representativeDocument'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
                         </mat-form-field>

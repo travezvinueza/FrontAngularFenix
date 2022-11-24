@@ -1,3 +1,7 @@
+import { CompanyModel } from 'app/models/company.model';
+import { messages } from './../../../../mock-api/common/messages/data';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from 'app/shared/alert.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { DateTime } from 'luxon';
@@ -7,7 +11,8 @@ import { CryptoService } from 'app/modules/admin/dashboards/crypto/crypto.servic
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { FinanceService } from '../finance/finance.service';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { LegalRepresentativeModel, Person } from 'app/models/legal.representative.model';
 
 @Component({
     selector: 'crypto',
@@ -17,6 +22,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 })
 export class CryptoComponent implements OnInit, OnDestroy {
 
+    @ViewChild('registerCompanyNgForm') registerCompanyNgForm: NgForm;
     @ViewChild('recentTransactionsTable', { read: MatSort }) recentTransactionsTableMatSort: MatSort;
 
     data: any;
@@ -30,20 +36,23 @@ export class CryptoComponent implements OnInit, OnDestroy {
     constructor(
         private _cryptoService: CryptoService,
         private _formBuilder: UntypedFormBuilder,
+        public alertService: AlertService
     ) {
     }
 
     ngOnInit(): void {
 
-        this.registerCompanyForm  = this._formBuilder.group({
-            name      : ['', Validators.required],
-            commercialName     : ['', [Validators.required]],
-            password  : ['', Validators.required],
-            company   : [''],
-            agreements: ['', Validators.requiredTrue],
-            representativeName: ['', Validators.requiredTrue],
+        this.registerCompanyForm = this._formBuilder.group({
+            name: ['', Validators.required],
+            commercialName: ['', [Validators.required]],
+            document: ['', Validators.required],
+            phone: ['', Validators.required],
+            mobile: ['', Validators.required],
+            representativeName: ['', Validators.required],
+            representativeLastname: ['', Validators.required],
+            representativeDocument: ['', Validators.required],
         }
-    );
+        );
 
         this._cryptoService.data$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -68,6 +77,49 @@ export class CryptoComponent implements OnInit, OnDestroy {
 
 
     createCompany() {
+        if (this.registerCompanyForm.invalid) {
+            this.alertService.showAlert = true
+            this.alertService.alert = {
+                type: 'error',
+                message: 'Something went wrong, please try again.'
+            };
+            return
+        }
+
+        const person: Person = {
+            name: this.registerCompanyForm.value.representativeName,
+            lastName: this.registerCompanyForm.value.representativeLastname,
+            document: this.registerCompanyForm.value.representativeDocument
+        }
+
+        const legal: LegalRepresentativeModel = {
+            person: person
+        }
+
+        const companyModel: CompanyModel = {
+            name: this.registerCompanyForm.value.name,
+            commercialName: this.registerCompanyForm.value.commercialName,
+            document: this.registerCompanyForm.value.document,
+            mobile: this.registerCompanyForm.value.mobile,
+            legalRepresentative: legal,
+            phone: this.registerCompanyForm.value.mobile,
+        }
+
+        this._cryptoService.createCompany(companyModel).subscribe(data => {
+            this.alertService.alert = {
+                type: 'success',
+                message: 'Registro creado'
+            };
+            this.alertService.showAlert = true
+            this.registerCompanyForm.reset();
+            this.registerCompanyNgForm.resetForm();
+        }, (response: HttpErrorResponse) => {
+            this.alertService.alert = {
+                type: 'error',
+                message: response.error.message
+            };
+            this.alertService.showAlert = true
+        })
 
     }
 }
