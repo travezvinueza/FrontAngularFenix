@@ -7,6 +7,7 @@ import { CryptoService } from 'app/modules/admin/dashboards/crypto/crypto.servic
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { FinanceService } from '../finance/finance.service';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'crypto',
@@ -24,17 +25,29 @@ export class CryptoComponent implements OnInit, OnDestroy {
     recentTransactionsTableColumns: string[] = ['name', 'commercialName', 'document', 'mobile', 'status'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
+    registerCompanyForm: UntypedFormGroup;
+
     constructor(
         private _cryptoService: CryptoService,
-        private _financeService: FinanceService
+        private _formBuilder: UntypedFormBuilder,
     ) {
     }
 
     ngOnInit(): void {
+
+        this.registerCompanyForm  = this._formBuilder.group({
+            name      : ['', Validators.required],
+            commercialName     : ['', [Validators.required]],
+            password  : ['', Validators.required],
+            company   : [''],
+            agreements: ['', Validators.requiredTrue],
+            representativeName: ['', Validators.requiredTrue],
+        }
+    );
+
         this._cryptoService.data$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((data) => {
-                debugger
                 this.data = data;
                 this.recentTransactionsDataSource.data = data;
             });
@@ -54,4 +67,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
     }
 
 
+    createCompany() {
+
+    }
 }

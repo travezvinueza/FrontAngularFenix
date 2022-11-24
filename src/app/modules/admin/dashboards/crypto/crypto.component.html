@@ -1,7 +1,7 @@
 <div class="flex flex-col flex-auto w-full">
     <div class="flex flex-wrap w-full max-w-screen-xl mx-auto p-6 md:p-8">
-         <!-- Title and action buttons -->
-         <div class="flex items-center justify-between w-full">
+        <!-- Title and action buttons -->
+        <div class="flex items-center justify-between w-full">
             <div>
                 <h2 class="text-3xl font-semibold tracking-tight leading-8">Empresas registradas</h2>
             </div>
@@ -9,12 +9,13 @@
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full mt-8">
             <!-- Formulario -->
             <div class="flex items-center">
-                <form class="flex flex-col flex-auto p-6 bg-card rounded-2xl shadow overflow-hidden">
+                <form class="flex flex-col flex-auto p-6 bg-card rounded-2xl shadow overflow-hidden" [formGroup]="registerCompanyForm"
+                #signUpNgForm="ngForm">
                     <p class="text-lg font-medium">Nueva Empresa</p>
                     <mat-divider class="mt-6 mb-10"></mat-divider>
                     <div class="flex">
                         <mat-form-field class="flex-auto">
-                            <input matInput [placeholder]="'Nombre'">
+                            <input matInput [placeholder]="'Nombre'" [formControlName]="'name'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
                         </mat-form-field>
@@ -40,20 +41,15 @@
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
                         </mat-form-field>
-                        <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <!--<mat-form-field class="flex-auto gt-xs:pl-3">
                             <input matInput [placeholder]="'Cuotas de usuario'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
                             </mat-icon>
-                        </mat-form-field>
+                        </mat-form-field>-->
                     </div>
                     <p class="text-lg font-medium">Representante Legal</p>
                     <mat-divider class="mt-6 mb-10"></mat-divider>
                     <div class="flex flex-col gt-xs:flex-row">
-                        <mat-form-field class="flex-auto gt-xs:pr-3">
-                            <input matInput [placeholder]="'Email'">
-                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
-                            </mat-icon>
-                        </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pl-3">
                             <input matInput [placeholder]="'Nombre'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'">
@@ -75,7 +71,7 @@
                         <button mat-button>
                             Cancelar
                         </button>
-                        <button class="px-6 ml-3" mat-flat-button [color]="'primary'">
+                        <button (click)="createCompany()" class="px-6 ml-3" mat-flat-button [color]="'primary'">
                             Guardar
                         </button>
                     </div>
