@@ -17,6 +17,8 @@ import { SharedModule } from 'app/shared/shared.module';
 import { CryptoComponent } from 'app/modules/admin/dashboards/crypto/crypto.component';
 import { cryptoRoutes } from 'app/modules/admin/dashboards/crypto/crypto.routing';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,9 @@ import { MatDividerModule } from '@angular/material/divider';
         NgApexchartsModule,
         SharedModule,
         MatProgressBarModule,
-        MatDividerModule
+        MatDividerModule,
+        MatCheckboxModule,
+        MatRadioModule,
     ]
 })
 export class CryptoModule
