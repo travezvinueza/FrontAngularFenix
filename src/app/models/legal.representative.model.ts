@@ -5,6 +5,7 @@ export interface LegalRepresentativeModel {
 
 
 export interface Person {
+    id?: number,
     name?: string,
     lastName?: string,
     document: string

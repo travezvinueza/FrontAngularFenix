@@ -21,7 +21,7 @@ export class CryptoService {
 
     getData(): Observable<CompanyModel[]> {
         return this._httpClient.get<CompanyModel[]>(AppSettings.API_PATH.concat('/v1/company')).pipe(
-            tap((response: any) => {
+            tap((response: CompanyModel[]) => {
                 this._data.next(response);
             })
         );
