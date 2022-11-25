@@ -70,6 +70,28 @@ export class CryptoComponent implements OnInit, OnDestroy {
 
         this.registerCompanyForm.disable();
 
+        this._cryptoService.createCompany(this.buildCompanyModel()).subscribe(data => {
+            this.alertService.alertMessage('success', 'Registro creado exitosamente', true)
+            this.registerCompanyForm.enable();
+            this.registerCompanyForm.reset()
+            this.registerCompanyNgForm.resetForm();
+            this.getAllCompanies()
+        }, (response: HttpErrorResponse) => {
+            this.alertService.alertMessage('error', response.error.message, true)
+            this.registerCompanyForm.enable()
+        })
+    }
+
+    editCompany(company: CompanyModel) {
+        this.updateCompanyBtn = true
+        this.registerCompanyForm.get('name').setValue(company.name);
+    }
+
+    updateCompany() {
+
+    }
+
+    buildCompanyModel(): CompanyModel {
         const person: Person = {
             name: this.registerCompanyForm.value.representativeName,
             lastName: this.registerCompanyForm.value.representativeLastname,
@@ -89,16 +111,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
             legalRepresentative: legal,
         }
 
-        this._cryptoService.createCompany(companyModel).subscribe(data => {
-            this.alertService.alertMessage('success', 'Registro creado exitosamente', true)
-            this.registerCompanyForm.enable();
-            this.registerCompanyForm.reset()
-            this.registerCompanyNgForm.resetForm();
-            this.getAllCompanies()
-        }, (response: HttpErrorResponse) => {
-            this.alertService.alertMessage('error', response.error.message, true)
-            this.registerCompanyForm.enable()
-        })
+        return companyModel
     }
 
     clearFilters() {
@@ -107,15 +120,6 @@ export class CryptoComponent implements OnInit, OnDestroy {
         this.registerCompanyForm.reset()
         this.registerCompanyNgForm.resetForm();
         this.alertService.showAlert = false
-    }
-
-    editCompany(company: CompanyModel) {
-        this.updateCompanyBtn = true
-        this.registerCompanyForm.get('name').setValue(company.name);
-    }
-
-    updateCompany() {
-
     }
 
     ngAfterViewInit(): void {
