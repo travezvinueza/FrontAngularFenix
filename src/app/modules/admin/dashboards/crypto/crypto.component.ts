@@ -29,6 +29,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
     recentTransactionsTableColumns: string[] = ['name', 'commercialName', 'document', 'mobile', 'status', 'actions'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     registerCompanyForm: UntypedFormGroup;
+    updateCompanyBtn: boolean = false
 
     constructor(
         private _cryptoService: CryptoService,
@@ -48,9 +49,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
             representativeName: ['', Validators.required],
             representativeLastname: ['', Validators.required],
             representativeDocument: ['', Validators.required],
-        }
-        );
-
+        });
         this.getAllCompanies()
     }
 
@@ -102,11 +101,21 @@ export class CryptoComponent implements OnInit, OnDestroy {
         })
     }
 
-    clear() {
+    clearFilters() {
+        this.updateCompanyBtn = false
         this.registerCompanyForm.enable();
         this.registerCompanyForm.reset()
         this.registerCompanyNgForm.resetForm();
         this.alertService.showAlert = false
+    }
+
+    editCompany(company: CompanyModel) {
+        this.updateCompanyBtn = true
+        this.registerCompanyForm.get('name').setValue(company.name);
+    }
+
+    updateCompany() {
+
     }
 
     ngAfterViewInit(): void {

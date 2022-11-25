@@ -17,7 +17,7 @@ export class AlertService {
   alertMessage(type: FuseAlertType, message: string, view: boolean) {
     this.alert = {
       type: type,
-      message: message || 'Error undefined'
+      message: message || 'Ocurrio un error inesperado, consulte con el administrador!'
     };
     this.showAlert = view
   }
