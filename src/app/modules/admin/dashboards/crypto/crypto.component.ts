@@ -140,7 +140,15 @@ export class CryptoComponent implements OnInit, OnDestroy {
         return companyModel
     }
 
-    
+
+    deleteCompany(company: CompanyModel) {
+        this._cryptoService.deleteCompany(company.id).subscribe(data => {
+            this.alertService.alertMessage('success', 'Registro eliminado exitosamente', true)
+            this.getAllCompanies()
+        }, (response: HttpErrorResponse) => {
+            this.alertService.alertMessage('error', response.error.message, true)
+        })
+    }
 
     clearFilters() {
         this.updateCompanyBtn = false

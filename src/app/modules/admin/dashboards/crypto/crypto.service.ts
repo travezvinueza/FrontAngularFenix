@@ -35,5 +35,8 @@ export class CryptoService {
         return this._httpClient.patch(AppSettings.API_PATH + '/v1/company/update/' + idCompany, companyModel)
     }
 
-    
+    deleteCompany(idCompany: number): Observable<any> {
+        return this._httpClient.delete(AppSettings.API_PATH + '/v1/company/delete/' + idCompany)
+    } 
+
 }
