@@ -30,4 +30,10 @@ export class CryptoService {
     createCompany(companyModel: CompanyModel): Observable<CompanyModel> {
         return this._httpClient.post(AppSettings.API_PATH + '/v1/company/create', companyModel)
     }
+
+    updateCompany(companyModel: CompanyModel, idCompany: number): Observable<CompanyModel> {
+        return this._httpClient.patch(AppSettings.API_PATH + '/v1/company/update/' + idCompany, companyModel)
+    }
+
+    
 }

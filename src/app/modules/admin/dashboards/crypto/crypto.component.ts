@@ -30,6 +30,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     registerCompanyForm: UntypedFormGroup;
     updateCompanyBtn: boolean = false
+    idCompany: number = 0
 
     constructor(
         private _cryptoService: CryptoService,
@@ -54,6 +55,8 @@ export class CryptoComponent implements OnInit, OnDestroy {
     }
 
     getAllCompanies() {
+        this.data = []
+        this.recentTransactionsDataSource.data = []
         this._cryptoService.getData().subscribe(data => {
             this.data = data;
             this.recentTransactionsDataSource.data = data.reverse();
@@ -85,10 +88,33 @@ export class CryptoComponent implements OnInit, OnDestroy {
     editCompany(company: CompanyModel) {
         this.updateCompanyBtn = true
         this.registerCompanyForm.get('name').setValue(company.name);
+        this.registerCompanyForm.get('commercialName').setValue(company.commercialName);
+        this.registerCompanyForm.get('document').setValue(company.document);
+        this.registerCompanyForm.get('phone').setValue(company.phone);
+        this.registerCompanyForm.get('mobile').setValue(company.mobile);
+        this.registerCompanyForm.get('representativeName').setValue(company.legalRepresentative.person.name);
+        this.registerCompanyForm.get('representativeLastname').setValue(company.legalRepresentative.person.lastName);
+        this.registerCompanyForm.get('representativeDocument').setValue(company.legalRepresentative.person.document);
+        this.idCompany = company.id
     }
 
     updateCompany() {
+        if (this.registerCompanyForm.invalid) {
+            this.alertService.alertMessage('error', 'Debe de completar todos los campos', true)
+            return
+        }
+        this.registerCompanyForm.disable();
 
+        this._cryptoService.updateCompany(this.buildCompanyModel(), this.idCompany).subscribe(data => {
+            this.alertService.alertMessage('success', 'Registro actualizado exitosamente', true)
+            this.registerCompanyForm.enable();
+            this.registerCompanyForm.reset()
+            this.registerCompanyNgForm.resetForm();
+            this.getAllCompanies()
+        }, (response: HttpErrorResponse) => {
+            this.alertService.alertMessage('error', response.error.message, true)
+            this.registerCompanyForm.enable()
+        })
     }
 
     buildCompanyModel(): CompanyModel {
@@ -113,6 +139,8 @@ export class CryptoComponent implements OnInit, OnDestroy {
 
         return companyModel
     }
+
+    
 
     clearFilters() {
         this.updateCompanyBtn = false
