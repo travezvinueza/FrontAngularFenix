@@ -33,17 +33,17 @@
                             </mat-icon>
                         </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pl-3">
-                            <input matInput [placeholder]="'Ruc'" [formControlName]="'document'">
+                            <input matInput type="number" [placeholder]="'Ruc'" [formControlName]="'document'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:identification'">
                             </mat-icon>
                         </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pl-3">
-                            <input matInput [placeholder]="'Telefono'" [formControlName]="'phone'">
+                            <input matInput type="number" [placeholder]="'Telefono'" [formControlName]="'phone'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:phone'">
                             </mat-icon>
                         </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pl-3">
-                            <input matInput [placeholder]="'Celular'" [formControlName]="'mobile'">
+                            <input matInput type="number" [placeholder]="'Celular'" [formControlName]="'mobile'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:device-mobile'">
                             </mat-icon>
                         </mat-form-field>
@@ -67,7 +67,7 @@
                             </mat-icon>
                         </mat-form-field>
                         <mat-form-field class="flex-auto gt-xs:pl-3">
-                            <input matInput [placeholder]="'Documento'" [formControlName]="'representativeDocument'">
+                            <input matInput type="number" [placeholder]="'Documento'" [formControlName]="'representativeDocument'">
                             <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:identification'">
                             </mat-icon>
                         </mat-form-field>
@@ -162,7 +162,7 @@
                                         aria-label="Example icon button with a vertical three dot icon">
                                         <mat-icon>edit</mat-icon>
                                     </button>
-                                    <button (click)="deleteCompany(company)" matTooltip="Eliminar registro" mat-icon-button color="warn"
+                                    <button (click)="deleteCompany(company)" type="submit" matTooltip="Eliminar registro" mat-icon-button color="warn"
                                         aria-label="Example icon button with a vertical three dot icon">
                                         <mat-icon>delete</mat-icon>
                                     </button>

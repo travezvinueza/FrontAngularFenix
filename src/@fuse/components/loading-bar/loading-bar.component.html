@@ -1,5 +1,4 @@
 <ng-container *ngIf="show">
-    <mat-progress-bar
-        [mode]="mode"
-        [value]="progress"></mat-progress-bar>
+    <progress-bar [progress]="100" [color-degraded]="{'0': '#00cbcb',  '15': '#f9c3d3', '25': '#fd8c8e'}">
+    </progress-bar>
 </ng-container>

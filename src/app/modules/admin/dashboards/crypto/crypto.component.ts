@@ -10,6 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { LegalRepresentativeModel, Person } from 'app/models/legal.representative.model';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseLoadingService } from '@fuse/services/loading';
 
 @Component({
     selector: 'crypto',
