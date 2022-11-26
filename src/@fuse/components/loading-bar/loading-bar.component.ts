@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEnca
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseLoadingService } from '@fuse/services/loading';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
     selector     : 'fuse-loading-bar',
@@ -17,6 +18,8 @@ export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
     progress: number = 0;
     show: boolean = false;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    @BlockUI() blockUI: NgBlockUI;
 
     /**
      * Constructor
@@ -37,6 +40,7 @@ export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
     ngOnChanges(changes: SimpleChanges): void
     {
         // Auto mode
+        debugger
         if ( 'autoMode' in changes )
         {
             // Set the auto mode in the service
@@ -67,6 +71,7 @@ export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
             .subscribe((value) => {
                 this.show = value;
             });
+
 
     }
 

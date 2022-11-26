@@ -2,7 +2,7 @@ import { CompanyModel } from 'app/models/company.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from 'app/shared/alert.service';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ApexOptions } from 'ng-apexcharts';
 import { CryptoService } from 'app/modules/admin/dashboards/crypto/crypto.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { LegalRepresentativeModel, Person } from 'app/models/legal.representative.model';
 import { fuseAnimations } from '@fuse/animations';
-import { FuseLoadingService } from '@fuse/services/loading';
+
 
 @Component({
     selector: 'crypto',
@@ -143,6 +143,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
 
 
     deleteCompany(company: CompanyModel) {
+        //this.blockUiService.showBlockUi()
         this._cryptoService.deleteCompany(company.id).subscribe(data => {
             this.alertService.alertMessage('success', 'Registro eliminado exitosamente', true)
             this.getAllCompanies()
