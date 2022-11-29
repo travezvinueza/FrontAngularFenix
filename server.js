@@ -1,15 +1,10 @@
-//Install express server
-const express = require('express');
-const path = require('path');
+let express = require('express')
 
-const app = express();
+let app = express()
 
-// Serve only the static files form the dist directory
-app.use(express.static('./dist/fuse-angular'));
+app.use('/*',(req, resp) => {
+    resp.sendFile(__dirname+'/dist/fuse/index.html')
+});
 
-app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: 'dist/fuse/'}),
-);
 
-// Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 8080)
