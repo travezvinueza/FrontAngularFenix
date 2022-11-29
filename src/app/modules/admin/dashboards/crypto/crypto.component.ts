@@ -2,7 +2,7 @@ import { CompanyModel } from 'app/models/company.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from 'app/shared/alert.service';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { ApexOptions } from 'ng-apexcharts';
 import { CryptoService } from 'app/modules/admin/dashboards/crypto/crypto.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,6 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { LegalRepresentativeModel, Person } from 'app/models/legal.representative.model';
 import { fuseAnimations } from '@fuse/animations';
+import { SearchService } from 'app/shared/search.service';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class CryptoComponent implements OnInit, OnDestroy {
     constructor(
         private _cryptoService: CryptoService,
         private _formBuilder: UntypedFormBuilder,
-        public alertService: AlertService
+        public alertService: AlertService,
+        private searchService: SearchService
     ) {
     }
 
@@ -111,6 +113,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
             this.registerCompanyForm.enable();
             this.registerCompanyForm.reset()
             this.registerCompanyNgForm.resetForm();
+            this.clearFilters()
             this.getAllCompanies()
         }, (response: HttpErrorResponse) => {
             this.alertService.alertMessage('error', response.error.message, true)
@@ -143,13 +146,23 @@ export class CryptoComponent implements OnInit, OnDestroy {
 
 
     deleteCompany(company: CompanyModel) {
-        //this.blockUiService.showBlockUi()
         this._cryptoService.deleteCompany(company.id).subscribe(data => {
             this.alertService.alertMessage('success', 'Registro eliminado exitosamente', true)
             this.getAllCompanies()
         }, (response: HttpErrorResponse) => {
             this.alertService.alertMessage('error', response.error.message, true)
         })
+    }
+
+    searchCompany(event: any) {
+        if (event.code == 'Enter') {
+            this.searchService.genericSearch(event.target.value, 'company').subscribe(data => {
+                this.data = data;
+                this.recentTransactionsDataSource.data = data.reverse();
+            }, (response: any) => {
+                this.alertService.alertMessage('error', 'Busqueda sin registros', true)
+            })
+        }
     }
 
     clearFilters() {

@@ -317,6 +317,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
      */
     filterTags(event): void
     {
+        debugger
         // Get the value
         const value = event.target.value.toLowerCase();
 
@@ -331,6 +332,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy
      */
     filterTagsInputKeyDown(event): void
     {
+        debugger
         // Return if the pressed key is not 'Enter'
         if ( event.key !== 'Enter' )
         {

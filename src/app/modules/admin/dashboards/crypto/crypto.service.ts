@@ -1,6 +1,6 @@
 import { CompanyModel } from './../../../../models/company.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AppSettings } from 'app/enviroments';
 
@@ -37,6 +37,5 @@ export class CryptoService {
 
     deleteCompany(idCompany: number): Observable<any> {
         return this._httpClient.delete(AppSettings.API_PATH + '/v1/company/delete/' + idCompany)
-    } 
-
+    }
 }

@@ -117,6 +117,7 @@ export class FuseLoadingService {
 
         if (status === true) {
             this.blockUI.start('Cargando...')
+            window.scroll({ top: 0, left: 0, behavior: 'auto' })
             this._urlMap.set(url, status);
             this._show$.next(true);
         }
