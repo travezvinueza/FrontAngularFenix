@@ -50,7 +50,7 @@ export class AuthSignInComponent implements OnInit {
                     this._router.navigateByUrl("/signed-in-redirect");
                 }, (response: HttpErrorResponse) => {
                     this.signInForm.enable();
-                    this.alertService.alertMessage('error', response.error.message || 'Sistema no disponible, intente mas tarde', true)
+                    this.alertService.showAlertMessage('error', response.error.message || 'Sistema no disponible, intente mas tarde', true)
                 }
             );
     }

@@ -14,11 +14,12 @@ export class AlertService {
 
   constructor() { }
 
-  alertMessage(type: FuseAlertType, message: string, view: boolean) {
+  showAlertMessage(type: FuseAlertType, message: string, view: boolean) {
     this.alert = {
       type: type,
       message: message || 'Ocurrio un error inesperado, consulte con el administrador!'
     };
     this.showAlert = view
   }
+  
 }

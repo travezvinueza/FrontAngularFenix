@@ -64,26 +64,26 @@ export class CryptoComponent implements OnInit, OnDestroy {
             this.data = data;
             this.recentTransactionsDataSource.data = data.reverse();
         }, (response => {
-            this.alertService.alertMessage('error', response.error.message, true)
+            this.alertService.showAlertMessage('error', response.error.message, true)
         }))
     }
 
     createCompany() {
         if (this.registerCompanyForm.invalid) {
-            this.alertService.alertMessage('error', 'Debe de completar todos los campos', true)
+            this.alertService.showAlertMessage('error', 'Debe de completar todos los campos', true)
             return
         }
 
         this.registerCompanyForm.disable();
 
         this._cryptoService.createCompany(this.buildCompanyModel()).subscribe(data => {
-            this.alertService.alertMessage('success', 'Registro creado exitosamente', true)
+            this.alertService.showAlertMessage('success', 'Registro creado exitosamente', true)
             this.registerCompanyForm.enable();
             this.registerCompanyForm.reset()
             this.registerCompanyNgForm.resetForm();
             this.getAllCompanies()
         }, (response: HttpErrorResponse) => {
-            this.alertService.alertMessage('error', response.error.message, true)
+            this.alertService.showAlertMessage('error', response.error.message, true)
             this.registerCompanyForm.enable()
         })
     }
@@ -103,20 +103,20 @@ export class CryptoComponent implements OnInit, OnDestroy {
 
     updateCompany() {
         if (this.registerCompanyForm.invalid) {
-            this.alertService.alertMessage('error', 'Debe de completar todos los campos', true)
+            this.alertService.showAlertMessage('error', 'Debe de completar todos los campos', true)
             return
         }
         this.registerCompanyForm.disable();
 
         this._cryptoService.updateCompany(this.buildCompanyModel(), this.idCompany).subscribe(data => {
-            this.alertService.alertMessage('success', 'Registro actualizado exitosamente', true)
+            this.alertService.showAlertMessage('success', 'Registro actualizado exitosamente', true)
             this.registerCompanyForm.enable();
             this.registerCompanyForm.reset()
             this.registerCompanyNgForm.resetForm();
             this.clearFilters()
             this.getAllCompanies()
         }, (response: HttpErrorResponse) => {
-            this.alertService.alertMessage('error', response.error.message, true)
+            this.alertService.showAlertMessage('error', response.error.message, true)
             this.registerCompanyForm.enable()
         })
     }
@@ -147,10 +147,10 @@ export class CryptoComponent implements OnInit, OnDestroy {
 
     deleteCompany(company: CompanyModel) {
         this._cryptoService.deleteCompany(company.id).subscribe(data => {
-            this.alertService.alertMessage('success', 'Registro eliminado exitosamente', true)
+            this.alertService.showAlertMessage('success', 'Registro eliminado exitosamente', true)
             this.getAllCompanies()
         }, (response: HttpErrorResponse) => {
-            this.alertService.alertMessage('error', response.error.message, true)
+            this.alertService.showAlertMessage('error', response.error.message, true)
         })
     }
 
@@ -160,7 +160,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
                 this.data = data;
                 this.recentTransactionsDataSource.data = data.reverse();
             }, (response: any) => {
-                this.alertService.alertMessage('error', 'Busqueda sin registros', true)
+                this.alertService.showAlertMessage('error', 'Busqueda sin registros', true)
             })
         }
     }
