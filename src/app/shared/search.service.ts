@@ -1,9 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppSettings } from 'app/enviroments';
-import { CompanyModel } from 'app/models/company.model';
-import { map } from 'lodash';
-import { catchError, delayWhen, Observable, of, retryWhen, shareReplay, switchMap, tap, throwError, timer } from 'rxjs';
+import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
