@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FuseAlertType } from '@fuse/components/alert';
+import { FuseAlertService, FuseAlertType } from '@fuse/components/alert';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,39 @@ export class AlertService {
     type: 'success',
     message: ''
   };
-  showAlert: boolean = false;
 
-  constructor() { }
+  constructor(private _fuseAlertService: FuseAlertService) {
+    this.dismiss('alertBox')
+  }
 
-  showAlertMessage(type: FuseAlertType, message: string, view: boolean) {
+  showAlertMessage(type: FuseAlertType, message: string) {
     this.alert = {
       type: type,
       message: message || 'Ocurrio un error inesperado, consulte con el administrador!'
     };
-    this.showAlert = view
+    this.show('alertBox')
   }
-  
+
+  hideAlertMessage() {
+    this.dismiss('alertBox')
+  }
+
+  showSweetAlertSuccess1(message: string) {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: message,
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+
+  private dismiss(name: string): void {
+    this._fuseAlertService.dismiss(name);
+  }
+
+  private show(name: string): void {
+    this._fuseAlertService.show(name);
+  }
+
 }

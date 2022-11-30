@@ -13,12 +13,6 @@
                     <form class="flex flex-col flex-auto p-6 bg-card rounded-2xl shadow overflow-hidden"
                         [formGroup]="registerCompanyForm" #registerCompanyNgForm="ngForm">
                         <p class="text-lg font-medium">Nueva Empresa</p>
-                        <!-- Alert -->
-                        <fuse-alert class="mt-8" *ngIf="this.alertService.showAlert" [appearance]="'outline'"
-                            [showIcon]="false" [type]="this.alertService.alert.type"
-                            [@shake]="this.alertService.alert.type === 'error'">
-                            {{this.alertService.alert.message}}
-                        </fuse-alert>
                         <mat-divider class="mt-6 mb-10"></mat-divider>
                         <div class="flex">
                             <mat-form-field class="flex-auto">
@@ -108,11 +102,17 @@
                             </mat-form-field>
                         </div>
                         <!-- Add contact button -->
-                        <button class="ml-4" mat-flat-button [color]="'primary'">
+                        <!-- <button (click)="searchButton()" class="ml-4" mat-flat-button [color]="'primary'">
                             <mat-icon [svgIcon]="'heroicons_outline:search'"></mat-icon>
                             <span class="ml-2 mr-1">Buscar</span>
-                        </button>
+                        </button> -->
                     </div>
+                    <!-- Alert -->
+                    <fuse-alert class="mt-8" [appearance]="'soft'" [showIcon]="false"
+                        [type]="this.alertService.alert.type" [dismissible]="true" [dismissed]="false"
+                        [name]="'alertBox'">
+                        {{this.alertService.alert.message}}
+                    </fuse-alert>
                     <table class="w-full bg-transparent" mat-table matSort [dataSource]="recentTransactionsDataSource"
                         [trackBy]="trackByFn" #recentTransactionsTable>
 

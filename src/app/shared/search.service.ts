@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppSettings } from 'app/enviroments';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class SearchService {
     { key: 'proyect', apiValue: '/v1/proyect/search' }
   ]
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient,  public alertService: AlertService,) {
   }
 
   genericSearch(searchValue: string, apiKey: string): Observable<any[]> {
