@@ -20,8 +20,8 @@ const themes = {
     // Default theme is required for theming system to work correctly!
     'default': {
         primary  : {
-            ...colors.indigo,
-            DEFAULT: colors.indigo[600]
+            ...colors.teal,
+            DEFAULT: colors.teal[600]
         },
         accent   : {
             ...colors.slate,
@@ -42,8 +42,8 @@ const themes = {
     },
     'teal'  : {
         primary: {
-            ...colors.teal,
-            DEFAULT: colors.teal[600]
+            ...colors.indigo,
+            DEFAULT: colors.indigo[600]
         }
     },
     'rose'  : {
