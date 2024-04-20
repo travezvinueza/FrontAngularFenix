@@ -38,8 +38,8 @@
                             "src/favicon-16x16.png",
                             "src/favicon-32x32.png",
                             "src/assets",
+                            "src/_redirects",
                             {
-                                "glob": "_redirects",
                                 "input": "src",
                                 "output": "/"
                             }
