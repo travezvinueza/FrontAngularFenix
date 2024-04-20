@@ -1,3 +1,3 @@
 export class AppSettings{
-    public static API_PATH = "http://localhost:9093/api"
+    public static API_PATH = "https://javapaas-169859-0.cloudclusters.net/api"
 }
