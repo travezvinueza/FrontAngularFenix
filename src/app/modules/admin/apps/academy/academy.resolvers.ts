@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Category, Course } from 'app/modules/admin/apps/academy/academy.types';
 import { AcademyService } from 'app/modules/admin/apps/academy/academy.service';
@@ -7,7 +7,7 @@ import { AcademyService } from 'app/modules/admin/apps/academy/academy.service';
 @Injectable({
     providedIn: 'root'
 })
-export class AcademyCategoriesResolver implements Resolve<any>
+export class AcademyCategoriesResolver 
 {
     /**
      * Constructor
@@ -35,7 +35,7 @@ export class AcademyCategoriesResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class AcademyCoursesResolver implements Resolve<any>
+export class AcademyCoursesResolver 
 {
     /**
      * Constructor
@@ -63,7 +63,7 @@ export class AcademyCoursesResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class AcademyCourseResolver implements Resolve<any>
+export class AcademyCourseResolver 
 {
     /**
      * Constructor

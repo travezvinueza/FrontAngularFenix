@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CryptoService } from 'app/modules/admin/dashboards/crypto/crypto.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class CryptoResolver implements Resolve<any>
+export class CryptoResolver 
 {
     /**
      * Constructor

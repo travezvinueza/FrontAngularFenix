@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HelpCenterService } from 'app/modules/admin/apps/help-center/help-center.service';
 import { FaqCategory, GuideCategory } from 'app/modules/admin/apps/help-center/help-center.type';
@@ -7,7 +7,7 @@ import { FaqCategory, GuideCategory } from 'app/modules/admin/apps/help-center/h
 @Injectable({
     providedIn: 'root'
 })
-export class HelpCenterMostAskedFaqsResolver implements Resolve<any>
+export class HelpCenterMostAskedFaqsResolver 
 {
     /**
      * Constructor
@@ -35,7 +35,7 @@ export class HelpCenterMostAskedFaqsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class HelpCenterFaqsResolver implements Resolve<any>
+export class HelpCenterFaqsResolver 
 {
     /**
      * Constructor
@@ -63,7 +63,7 @@ export class HelpCenterFaqsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class HelpCenterGuidesResolver implements Resolve<any>
+export class HelpCenterGuidesResolver 
 {
     /**
      * Constructor
@@ -91,7 +91,7 @@ export class HelpCenterGuidesResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class HelpCenterGuidesCategoryResolver implements Resolve<any>
+export class HelpCenterGuidesCategoryResolver 
 {
     /**
      * Constructor
@@ -119,7 +119,7 @@ export class HelpCenterGuidesCategoryResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class HelpCenterGuidesGuideResolver implements Resolve<any>
+export class HelpCenterGuidesGuideResolver 
 {
     /**
      * Constructor

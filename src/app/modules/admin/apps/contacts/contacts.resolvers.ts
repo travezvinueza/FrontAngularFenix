@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ContactsService } from 'app/modules/admin/apps/contacts/contacts.service';
 import { Contact, Country, Tag } from 'app/modules/admin/apps/contacts/contacts.types';
@@ -7,7 +7,7 @@ import { Contact, Country, Tag } from 'app/modules/admin/apps/contacts/contacts.
 @Injectable({
     providedIn: 'root'
 })
-export class ContactsResolver implements Resolve<any>
+export class ContactsResolver 
 {
     /**
      * Constructor
@@ -35,7 +35,7 @@ export class ContactsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class ContactsContactResolver implements Resolve<any>
+export class ContactsContactResolver 
 {
     /**
      * Constructor
@@ -83,7 +83,7 @@ export class ContactsContactResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class ContactsCountriesResolver implements Resolve<any>
+export class ContactsCountriesResolver 
 {
     /**
      * Constructor
@@ -111,7 +111,7 @@ export class ContactsCountriesResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class ContactsTagsResolver implements Resolve<any>
+export class ContactsTagsResolver 
 {
     /**
      * Constructor

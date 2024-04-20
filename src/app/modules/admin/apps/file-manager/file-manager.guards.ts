@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FileManagerDetailsComponent } from 'app/modules/admin/apps/file-manager/details/details.component';
 
 @Injectable({
     providedIn: 'root'
 })
-export class CanDeactivateFileManagerDetails implements CanDeactivate<FileManagerDetailsComponent>
+export class CanDeactivateFileManagerDetails 
 {
     canDeactivate(
         component: FileManagerDetailsComponent,

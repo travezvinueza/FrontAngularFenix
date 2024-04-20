@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FinanceService } from 'app/modules/admin/dashboards/finance/finance.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class FinanceResolver implements Resolve<any>
+export class FinanceResolver 
 {
     /**
      * Constructor

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { FileManagerService } from 'app/modules/admin/apps/file-manager/file-manager.service';
 import { Item } from 'app/modules/admin/apps/file-manager/file-manager.types';
@@ -7,7 +7,7 @@ import { Item } from 'app/modules/admin/apps/file-manager/file-manager.types';
 @Injectable({
     providedIn: 'root'
 })
-export class FileManagerItemsResolver implements Resolve<any>
+export class FileManagerItemsResolver 
 {
     /**
      * Constructor
@@ -35,7 +35,7 @@ export class FileManagerItemsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class FileManagerFolderResolver implements Resolve<any>
+export class FileManagerFolderResolver 
 {
     /**
      * Constructor
@@ -83,7 +83,7 @@ export class FileManagerFolderResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class FileManagerItemResolver implements Resolve<any>
+export class FileManagerItemResolver 
 {
     /**
      * Constructor

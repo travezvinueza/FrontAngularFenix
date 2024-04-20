@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { InventoryService } from 'app/modules/admin/apps/ecommerce/inventory/inventory.service';
 import { InventoryBrand, InventoryCategory, InventoryPagination, InventoryProduct, InventoryTag, InventoryVendor } from 'app/modules/admin/apps/ecommerce/inventory/inventory.types';
@@ -7,7 +7,7 @@ import { InventoryBrand, InventoryCategory, InventoryPagination, InventoryProduc
 @Injectable({
     providedIn: 'root'
 })
-export class InventoryBrandsResolver implements Resolve<any>
+export class InventoryBrandsResolver 
 {
     /**
      * Constructor
@@ -35,7 +35,7 @@ export class InventoryBrandsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class InventoryCategoriesResolver implements Resolve<any>
+export class InventoryCategoriesResolver 
 {
     /**
      * Constructor
@@ -63,7 +63,7 @@ export class InventoryCategoriesResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class InventoryProductResolver implements Resolve<any>
+export class InventoryProductResolver 
 {
     /**
      * Constructor
@@ -111,7 +111,7 @@ export class InventoryProductResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class InventoryProductsResolver implements Resolve<any>
+export class InventoryProductsResolver 
 {
     /**
      * Constructor
@@ -139,7 +139,7 @@ export class InventoryProductsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class InventoryTagsResolver implements Resolve<any>
+export class InventoryTagsResolver 
 {
     /**
      * Constructor
@@ -167,7 +167,7 @@ export class InventoryTagsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class InventoryVendorsResolver implements Resolve<any>
+export class InventoryVendorsResolver 
 {
     /**
      * Constructor

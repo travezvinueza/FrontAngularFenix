@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { TasksService } from 'app/modules/admin/apps/tasks/tasks.service';
 import { Tag, Task } from 'app/modules/admin/apps/tasks/tasks.types';
@@ -7,7 +7,7 @@ import { Tag, Task } from 'app/modules/admin/apps/tasks/tasks.types';
 @Injectable({
     providedIn: 'root'
 })
-export class TasksTagsResolver implements Resolve<any>
+export class TasksTagsResolver 
 {
     /**
      * Constructor
@@ -35,7 +35,7 @@ export class TasksTagsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class TasksResolver implements Resolve<any>
+export class TasksResolver 
 {
     /**
      * Constructor
@@ -63,7 +63,7 @@ export class TasksResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class TasksTaskResolver implements Resolve<any>
+export class TasksTaskResolver 
 {
     /**
      * Constructor

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ChatService } from 'app/modules/admin/apps/chat/chat.service';
 import { Chat, Contact, Profile } from 'app/modules/admin/apps/chat/chat.types';
@@ -7,7 +7,7 @@ import { Chat, Contact, Profile } from 'app/modules/admin/apps/chat/chat.types';
 @Injectable({
     providedIn: 'root'
 })
-export class ChatChatsResolver implements Resolve<any>
+export class ChatChatsResolver 
 {
     /**
      * Constructor
@@ -38,7 +38,7 @@ export class ChatChatsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class ChatChatResolver implements Resolve<any>
+export class ChatChatResolver 
 {
     /**
      * Constructor
@@ -86,7 +86,7 @@ export class ChatChatResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class ChatContactsResolver implements Resolve<any>
+export class ChatContactsResolver 
 {
     /**
      * Constructor
@@ -117,7 +117,7 @@ export class ChatContactsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class ChatProfileResolver implements Resolve<any>
+export class ChatProfileResolver 
 {
     /**
      * Constructor

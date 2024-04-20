@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Board, Card } from 'app/modules/admin/apps/scrumboard/scrumboard.models';
 import { ScrumboardService } from 'app/modules/admin/apps/scrumboard/scrumboard.service';
@@ -7,7 +7,7 @@ import { ScrumboardService } from 'app/modules/admin/apps/scrumboard/scrumboard.
 @Injectable({
     providedIn: 'root'
 })
-export class ScrumboardBoardsResolver implements Resolve<any>
+export class ScrumboardBoardsResolver 
 {
     /**
      * Constructor
@@ -37,7 +37,7 @@ export class ScrumboardBoardsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class ScrumboardBoardResolver implements Resolve<any>
+export class ScrumboardBoardResolver 
 {
     /**
      * Constructor
@@ -85,7 +85,7 @@ export class ScrumboardBoardResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class ScrumboardCardResolver implements Resolve<any>
+export class ScrumboardCardResolver 
 {
     /**
      * Constructor

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { catchError, finalize, forkJoin, Observable, throwError } from 'rxjs';
 import { MailboxService } from 'app/modules/admin/apps/mailbox/mailbox.service';
 import { Mail, MailFilter, MailFolder, MailLabel } from 'app/modules/admin/apps/mailbox/mailbox.types';
@@ -7,7 +7,7 @@ import { Mail, MailFilter, MailFolder, MailLabel } from 'app/modules/admin/apps/
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxFoldersResolver implements Resolve<any>
+export class MailboxFoldersResolver 
 {
     /**
      * Constructor
@@ -35,7 +35,7 @@ export class MailboxFoldersResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxFiltersResolver implements Resolve<any>
+export class MailboxFiltersResolver 
 {
     /**
      * Constructor
@@ -63,7 +63,7 @@ export class MailboxFiltersResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxLabelsResolver implements Resolve<any>
+export class MailboxLabelsResolver 
 {
     /**
      * Constructor
@@ -91,7 +91,7 @@ export class MailboxLabelsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxMailsResolver implements Resolve<any>
+export class MailboxMailsResolver 
 {
     /**
      * Constructor
@@ -197,7 +197,7 @@ export class MailboxMailsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxMailResolver implements Resolve<any>
+export class MailboxMailResolver 
 {
     /**
      * Constructor

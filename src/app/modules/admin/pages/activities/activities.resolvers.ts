@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ActivitiesService } from 'app/modules/admin/pages/activities/activities.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ActivitiesResolver implements Resolve<any>
+export class ActivitiesResolver 
 {
     /**
      * Constructor
