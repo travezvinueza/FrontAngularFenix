@@ -4,6 +4,7 @@ import { finalize } from 'rxjs';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'auth-forgot-password',
@@ -18,6 +19,7 @@ export class AuthForgotPasswordComponent implements OnInit {
         type: 'success',
         message: ''
     };
+
     forgotPasswordForm: UntypedFormGroup;
     showAlert: boolean = false;
 
@@ -26,13 +28,10 @@ export class AuthForgotPasswordComponent implements OnInit {
      */
     constructor(
         private _authService: AuthService,
-        private _formBuilder: UntypedFormBuilder
+        private _formBuilder: UntypedFormBuilder,
+        private router: Router
     ) {
     }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
 
     /**
      * On init
@@ -48,9 +47,6 @@ export class AuthForgotPasswordComponent implements OnInit {
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Send the reset link
-     */
     sendResetLink(): void {
         // Return if the form is invalid
         if (this.forgotPasswordForm.invalid) {
@@ -64,7 +60,7 @@ export class AuthForgotPasswordComponent implements OnInit {
         this.showAlert = false;
 
         // Forgot password
-        this._authService.forgotPassword(this.forgotPasswordForm.get('email').value)
+        this._authService.forgetPassword(this.forgotPasswordForm.get('email').value)
             .pipe(
                 finalize(() => {
 
@@ -86,13 +82,14 @@ export class AuthForgotPasswordComponent implements OnInit {
                         type: 'success',
                         message: 'Restablecimiento de contraseña enviado! Recibirá un correo electrónico si está registrado en nuestro sistema.'
                     };
+                    this.router.navigateByUrl('/reset-password');
                 },
                 (response) => {
 
                     // Set the alert
                     this.alert = {
                         type: 'error',
-                        message: 'Email does not found! Are you sure you are already a member?'
+                        message: '¡No se encuentra el correo electrónico! ¿Estás seguro de que ya eres miembro?'
                     };
                 }
             );
