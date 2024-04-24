@@ -7,10 +7,15 @@ import { user } from 'app/mock-api/common/user/data';
 import { User } from '../user/user.types';
 import { AppSettings } from 'app/enviroments';
 import { Router } from '@angular/router';
+import { ForgetPasswordRequest } from 'app/models/ForgetPasswordRequest.model';
+import { ResetPasswordRequest } from 'app/models/ResetPasswordRequest.model';
 
 @Injectable()
 export class AuthService {
     private _authenticated: boolean = false;
+
+    baseUrl = AppSettings.API_PATH;
+    authApi = this.baseUrl + '/public';
 
     /**
      * Constructor
@@ -72,8 +77,23 @@ export class AuthService {
         }
     }
 
-    forgotPassword(email: string): Observable<any> {
-        return this._httpClient.get('api/public/v1/security/user/change/password?correo=' + email);
+    forgetPassword(email: string): Observable<any> {
+        const request: ForgetPasswordRequest = { email: email };
+        return this._httpClient
+            .post(`${this.authApi}/forgetPassword`, request)
+            .pipe(
+                tap((response) => console.log(response)),
+                catchError((errResponse) => throwError(errResponse.error))
+            );
+    }
+
+    resetPassword(resetPasswordRequest: ResetPasswordRequest): Observable<any> {
+        return this._httpClient
+            .put(`${this.authApi}/resetPassword`, resetPasswordRequest)
+            .pipe(
+                tap((response) => console.log(response)),
+                catchError((errResponse) => throwError(errResponse.error))
+            );
     }
 
     signOut(): Observable<any> {
@@ -93,7 +113,8 @@ export class AuthService {
         return this._httpClient.post('api/auth/unlock-session', credentials);
     }
 
-    resetPassword(password: string): Observable<any> {
-        return this._httpClient.post('api/auth/reset-password', password);
-    }
 }
+function tap(arg0: (response: any) => void): any {
+    throw new Error('Function not implemented.');
+}
+
