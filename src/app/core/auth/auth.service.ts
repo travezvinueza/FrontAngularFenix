@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
+import { catchError, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { user } from 'app/mock-api/common/user/data';
@@ -114,7 +114,9 @@ export class AuthService {
     }
 
 }
-function tap(arg0: (response: any) => void): any {
-    throw new Error('Function not implemented.');
-}
+
+
+// function tap(arg0: (response: any) => void): any {
+//     throw new Error('Function not implemented.');
+// }
 
