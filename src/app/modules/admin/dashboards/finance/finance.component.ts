@@ -4,6 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subject, takeUntil } from 'rxjs';
 import { ApexOptions } from 'ng-apexcharts';
 import { FinanceService } from 'app/modules/admin/dashboards/finance/finance.service';
+import { FormControl, NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AlertService } from 'app/shared/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UserCompanyModel, UserPermission, UserRole } from 'app/models/UserCompanyModel';
 
 @Component({
     selector       : 'finance',
@@ -13,133 +17,136 @@ import { FinanceService } from 'app/modules/admin/dashboards/finance/finance.ser
 })
 export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy
 {
+    @ViewChild('createCompanyNgForm') createCompanyNgForm: NgForm;
     @ViewChild('recentTransactionsTable', {read: MatSort}) recentTransactionsTableMatSort: MatSort;
 
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
-    recentTransactionsTableColumns: string[] = ['transactionId', 'date', 'name', 'amount', 'status'];
+    recentTransactionsTableColumns: string[] = ['avatar', 'email', 'updatedAt', 'username', 'roles'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-    /**
-     * Constructor
-     */
-    constructor(private _financeService: FinanceService)
-    {
-    }
+    createCompanyForm: UntypedFormGroup;
+    roleId = new FormControl(0);
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
+  
+    constructor(
+        private _financeService: FinanceService,
+        private _formBuilder: UntypedFormBuilder,
+        public alertService: AlertService,
+    )
+    {}
+   
     ngOnInit(): void
     {
-        // Get the data
-        this._financeService.data$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((data) => {
-
-                // Store the data
-                this.data = data;
-
-                // Store the table data
-                this.recentTransactionsDataSource.data = data.recentTransactions;
-
-                // Prepare the chart data
-                this._prepareChartData();
-            });
+        this.createCompanyForm = this._formBuilder.group({
+            avatar: ['', Validators.required],
+            email: ['', [Validators.required]],
+            password: ['', Validators.required],
+            username: ['', Validators.required],
+            id: 0,
+            roles: [],
+         
+        });
+        this.getListUsers();
+        this.roleId.setValue(0);
+        
     }
 
-    /**
-     * After view init
-     */
+    createUser() {
+        if (this.createCompanyForm.invalid) {
+            this.alertService.showAlertMessage('error', 'Debe de completar todos los campos');
+            return;
+        }
+    
+        this.createCompanyForm.disable();
+    
+        const userModel: UserCompanyModel = this.buildUserModel();
+    
+        this._financeService.createUser(userModel).subscribe(data => {
+            this.createCompanyForm.enable();
+            this.createCompanyForm.reset();
+            this.createCompanyNgForm.resetForm();
+            this.getListUsers();
+            this.alertService.showAlertMessage('info', 'Usuario creado correctamente!');
+        }, (response: HttpErrorResponse) => {
+            this.alertService.showAlertMessage('error', response.error.message);
+            this.createCompanyForm.enable();
+        });
+    }
+    
+    buildUserModel(): UserCompanyModel {
+        const userRoles: UserRole[] = [{
+            id: this.roleId.value,
+            // Asegúrate de asignar valores adecuados para las demás propiedades de UserRole
+            createdAt: new Date(),
+            name: 'NombreDelRol',
+            permissions: [],
+            status: 'ACT',
+            updatedAt: new Date(),
+            version: 0
+        }];
+    
+        const userModel: UserCompanyModel = {
+            avatar: this.createCompanyForm.value.avatar,
+            email: this.createCompanyForm.value.email,
+            password: this.createCompanyForm.value.password,
+            username: this.createCompanyForm.value.username,
+            changePassword: false,
+            createdAt: new Date(),
+            id: 0,
+            roles: userRoles,
+            status: 'ACT',
+            updatedAt: new Date(),
+            version: 0
+        };
+    
+        return userModel;
+    }
+    
+
+    getListUsers() {
+        this.data = []
+        this.recentTransactionsDataSource.data = []
+        this._financeService.getUsers().subscribe(data => {
+            this.data = data;
+            this.recentTransactionsDataSource.data = data.reverse();
+        }, (response => {
+            this.alertService.showAlertMessage('error', response.error.message)
+        }))
+    }
+
+    getRoleName(company: UserCompanyModel): string {
+        if (company.roles && company.roles.length > 0) {
+          return company.roles[0].name;
+        } else {
+          return '';
+        }
+      }
+      
+
+    clearFilters() {
+        this.createCompanyForm.enable();
+        this.createCompanyForm.reset()
+        this.createCompanyNgForm.resetForm();
+        this.alertService.hideAlertMessage()
+    }
+
     ngAfterViewInit(): void
     {
-        // Make the data source sortable
         this.recentTransactionsDataSource.sort = this.recentTransactionsTableMatSort;
     }
 
-    /**
-     * On destroy
-     */
     ngOnDestroy(): void
     {
-        // Unsubscribe from all subscriptions
+    
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Track by function for ngFor loops
-     *
-     * @param index
-     * @param item
-     */
     trackByFn(index: number, item: any): any
     {
         return item.id || index;
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Private methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Prepare the chart data from the data
-     *
-     * @private
-     */
-    private _prepareChartData(): void
-    {
-        // Account balance
-        this.accountBalanceOptions = {
-            chart  : {
-                animations: {
-                    speed           : 400,
-                    animateGradually: {
-                        enabled: false
-                    }
-                },
-                fontFamily: 'inherit',
-                foreColor : 'inherit',
-                width     : '100%',
-                height    : '100%',
-                type      : 'area',
-                sparkline : {
-                    enabled: true
-                }
-            },
-            colors : ['#A3BFFA', '#667EEA'],
-            fill   : {
-                colors : ['#CED9FB', '#AECDFD'],
-                opacity: 0.5,
-                type   : 'solid'
-            },
-            series : this.data.accountBalance.series,
-            stroke : {
-                curve: 'straight',
-                width: 2
-            },
-            tooltip: {
-                followCursor: true,
-                theme       : 'dark',
-                x           : {
-                    format: 'MMM dd, yyyy'
-                },
-                y           : {
-                    formatter: (value): string => value + '%'
-                }
-            },
-            xaxis  : {
-                type: 'datetime'
-            }
-        };
-    }
 }

@@ -11,6 +11,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from 'app/shared/shared.module';
 import { FinanceComponent } from 'app/modules/admin/dashboards/finance/finance.component';
 import { financeRoutes } from 'app/modules/admin/dashboards/finance/finance.routing';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FuseAlertModule } from '@fuse/components/alert';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
@@ -26,7 +29,10 @@ import { financeRoutes } from 'app/modules/admin/dashboards/finance/finance.rout
         MatSortModule,
         MatTableModule,
         NgApexchartsModule,
-        SharedModule
+        SharedModule,
+        MatFormFieldModule,
+        FuseAlertModule,
+        MatSelectModule,
     ]
 })
 export class FinanceModule

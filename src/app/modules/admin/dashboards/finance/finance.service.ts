@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
+import { AppSettings } from 'app/enviroments';
+import { UserCompanyModel } from 'app/models/UserCompanyModel';
 
 @Injectable({
     providedIn: 'root'
@@ -8,19 +10,32 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 export class FinanceService {
     private _data: BehaviorSubject<any> = new BehaviorSubject(null);
 
-    /**
-     * Constructor
-     */
+    baseUrl = AppSettings.API_PATH;
+    createApi = this.baseUrl + '/v1/security/user';
+
+    
     constructor(private _httpClient: HttpClient) {
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
+    createUser(user: UserCompanyModel): Observable<UserCompanyModel> {
+        return this._httpClient.post<UserCompanyModel>(`${this.createApi}/create`, user)
+          .pipe(
+            catchError(error => {
+              throw error;
+            })
+          );
+      }
 
-    /**
-     * Getter for data
-     */
+
+    getUsers(): Observable<UserCompanyModel[]> {
+        return this._httpClient.get<UserCompanyModel[]>(`${this.createApi}`).pipe(
+            tap((response: UserCompanyModel[]) => {
+                this._data.next(response);
+            })
+        );
+    }
+
+  
     get data$(): Observable<any> {
         return this._data.asObservable();
     }
