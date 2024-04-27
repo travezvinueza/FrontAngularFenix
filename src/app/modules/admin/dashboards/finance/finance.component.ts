@@ -1,44 +1,43 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ApexOptions } from 'ng-apexcharts';
 import { FinanceService } from 'app/modules/admin/dashboards/finance/finance.service';
 import { FormControl, NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'app/shared/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UserCompanyModel, UserPermission, UserRole } from 'app/models/UserCompanyModel';
+import { UserCompanyModel, UserRole } from 'app/models/UserCompanyModel';
+
+declare var $: any; //variable para darle movimiento al modal
 
 @Component({
-    selector       : 'finance',
-    templateUrl    : './finance.component.html',
-    encapsulation  : ViewEncapsulation.None,
+    selector: 'finance',
+    templateUrl: './finance.component.html',
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy
-{
+export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('createCompanyNgForm') createCompanyNgForm: NgForm;
-    @ViewChild('recentTransactionsTable', {read: MatSort}) recentTransactionsTableMatSort: MatSort;
+    @ViewChild('recentTransactionsTable', { read: MatSort }) recentTransactionsTableMatSort: MatSort;
 
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
-    recentTransactionsTableColumns: string[] = ['avatar', 'email', 'updatedAt', 'username', 'roles'];
+    recentTransactionsTableColumns: string[] = ['avatar', 'email', 'updatedAt', 'username', 'roles', 'actions'];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     createCompanyForm: UntypedFormGroup;
     roleId = new FormControl(0);
 
-  
+
     constructor(
         private _financeService: FinanceService,
         private _formBuilder: UntypedFormBuilder,
         public alertService: AlertService,
-    )
-    {}
-   
-    ngOnInit(): void
-    {
+    ) { }
+
+    ngOnInit(): void {
         this.createCompanyForm = this._formBuilder.group({
             avatar: ['', Validators.required],
             email: ['', [Validators.required]],
@@ -46,23 +45,20 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy
             username: ['', Validators.required],
             id: 0,
             roles: [],
-         
+
         });
         this.getListUsers();
         this.roleId.setValue(0);
-        
+
     }
 
     createUser() {
-        if (this.createCompanyForm.invalid) {
-            this.alertService.showAlertMessage('error', 'Debe de completar todos los campos');
-            return;
-        }
-    
+      
+
         this.createCompanyForm.disable();
-    
+
         const userModel: UserCompanyModel = this.buildUserModel();
-    
+
         this._financeService.createUser(userModel).subscribe(data => {
             this.createCompanyForm.enable();
             this.createCompanyForm.reset();
@@ -74,7 +70,7 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy
             this.createCompanyForm.enable();
         });
     }
-    
+
     buildUserModel(): UserCompanyModel {
         const userRoles: UserRole[] = [{
             id: this.roleId.value,
@@ -86,7 +82,7 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy
             updatedAt: new Date(),
             version: 0
         }];
-    
+
         const userModel: UserCompanyModel = {
             avatar: this.createCompanyForm.value.avatar,
             email: this.createCompanyForm.value.email,
@@ -100,10 +96,10 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy
             updatedAt: new Date(),
             version: 0
         };
-    
+
         return userModel;
     }
-    
+
 
     getListUsers() {
         this.data = []
@@ -118,12 +114,12 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy
 
     getRoleName(company: UserCompanyModel): string {
         if (company.roles && company.roles.length > 0) {
-          return company.roles[0].name;
+            return company.roles[0].name;
         } else {
-          return '';
+            return '';
         }
-      }
-      
+    }
+
 
     clearFilters() {
         this.createCompanyForm.enable();
@@ -132,20 +128,21 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy
         this.alertService.hideAlertMessage()
     }
 
-    ngAfterViewInit(): void
-    {
+    ngAfterViewInit(): void {
+        $('.modal-dialog').draggable({
+            handle: ".modal-header"
+        });
+
         this.recentTransactionsDataSource.sort = this.recentTransactionsTableMatSort;
     }
 
-    ngOnDestroy(): void
-    {
-    
+    ngOnDestroy(): void {
+
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
 
-    trackByFn(index: number, item: any): any
-    {
+    trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 
