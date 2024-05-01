@@ -32,7 +32,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
             },
             {
                 id   : 'dashboards.finance',
-                title: 'Finance',
+                title: 'Usuarios',
                 type : 'basic',
                 icon : 'heroicons_outline:cash',
                 link : '/dashboards/finance'

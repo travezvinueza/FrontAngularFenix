@@ -115,9 +115,7 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy {
     getRoleName(company: UserCompanyModel): string {
         if (company.roles && company.roles.length > 0) {
             return company.roles[0].name;
-        } else {
-            return '';
-        }
+        } 
     }
 
 
