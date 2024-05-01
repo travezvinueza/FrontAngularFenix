@@ -9,7 +9,6 @@ import { AlertService } from 'app/shared/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserCompanyModel, UserRole } from 'app/models/UserCompanyModel';
 
-declare var $: any; //variable para darle movimiento al modal
 
 @Component({
     selector: 'finance',
@@ -54,7 +53,6 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy {
 
     createUser() {
       
-
         this.createCompanyForm.disable();
 
         const userModel: UserCompanyModel = this.buildUserModel();
@@ -74,7 +72,6 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy {
     buildUserModel(): UserCompanyModel {
         const userRoles: UserRole[] = [{
             id: this.roleId.value,
-            // Asegúrate de asignar valores adecuados para las demás propiedades de UserRole
             createdAt: new Date(),
             name: 'NombreDelRol',
             permissions: [],
@@ -100,7 +97,6 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy {
         return userModel;
     }
 
-
     getListUsers() {
         this.data = []
         this.recentTransactionsDataSource.data = []
@@ -112,13 +108,6 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy {
         }))
     }
 
-    getRoleName(company: UserCompanyModel): string {
-        if (company.roles && company.roles.length > 0) {
-            return company.roles[0].name;
-        } 
-    }
-
-
     clearFilters() {
         this.createCompanyForm.enable();
         this.createCompanyForm.reset()
@@ -127,10 +116,7 @@ export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        $('.modal-dialog').draggable({
-            handle: ".modal-header"
-        });
-
+        
         this.recentTransactionsDataSource.sort = this.recentTransactionsTableMatSort;
     }
 
